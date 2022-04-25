@@ -15,4 +15,9 @@ Não deve utilizar nenhum mecanismo de busca ou analise como por exemplo Elastic
 ## Get Started
 
 ### Primeiros Passos
-Resolvi começar pelo "simples", receber o arquivo do usuário e salvar no banco como BLOB para que eu consiga baixar novamente, dessa forma não preciso manter o arquivo em nenhum diretório ou algo do tipo.  
+Resolvi começar pelo "simples", receber o arquivo do usuário e salvar no banco como BLOB para que eu consiga baixar novamente, dessa forma não preciso manter o arquivo em nenhum diretório ou algo do tipo.
+
+
+## Documentação da API 
+
+http://localhost:8080/swagger-ui/index.html
