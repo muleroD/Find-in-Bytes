@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import static br.com.mulero.findnbytes.util.FileReaderUtils.getBytes;
+import static br.com.mulero.findnbytes.util.FileReaderUtils.getContent;
 
 @Service
 public class DocumentoServiceImpl implements DocumentoService {
@@ -20,17 +21,11 @@ public class DocumentoServiceImpl implements DocumentoService {
         Documento documento = Documento.builder()
                 .nome(file.getOriginalFilename())
                 .arquivo(getBytes(file))
-                .conteudo("TESTE")
+                .conteudo(getContent(file))
                 .build();
 
         repository.save(documento);
     }
 
-    private byte[] getBytes(MultipartFile file) {
-        try {
-            return file.getBytes();
-        } catch (IOException ioException) {
-            throw new IllegalArgumentException("Erro ao recuperar bytes do arquivo");
-        }
-    }
+
 }
