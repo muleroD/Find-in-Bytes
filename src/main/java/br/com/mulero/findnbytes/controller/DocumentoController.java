@@ -22,6 +22,12 @@ public class DocumentoController {
         return service.listAll();
     }
 
+    @GetMapping("pesquisar")
+    public String pesquisarDocumentos(@RequestParam String trecho) {
+        // TODO - Retornar documentos com trecho pesquisado
+        return trecho;
+    }
+
     @PostMapping("upload")
     public void uploadDocumento(@RequestParam MultipartFile arquivo) {
         service.upload(arquivo);
