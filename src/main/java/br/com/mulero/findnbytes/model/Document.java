@@ -23,10 +23,12 @@ public class Document {
 
     @Column
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] archive;
 
     @Column
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private String content;
 
 }
