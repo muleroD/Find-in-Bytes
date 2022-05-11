@@ -4,11 +4,11 @@ import br.com.mulero.findnbytes.model.Document;
 import lombok.Data;
 
 @Data
-public class IdNameDto {
+public class IdNameDTO {
     private Long id;
     private String name;
 
-    public IdNameDto(Document document) {
+    public IdNameDTO(Document document) {
         this.id = document.getId();
         this.name = document.getName();
     }

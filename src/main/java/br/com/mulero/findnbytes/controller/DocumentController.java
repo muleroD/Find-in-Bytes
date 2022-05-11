@@ -1,6 +1,7 @@
 package br.com.mulero.findnbytes.controller;
 
-import br.com.mulero.findnbytes.dto.IdNameDto;
+import br.com.mulero.findnbytes.dto.DocumentDTO;
+import br.com.mulero.findnbytes.dto.IdNameDTO;
 import br.com.mulero.findnbytes.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +23,12 @@ public class DocumentController {
     }
 
     @GetMapping("listAll")
-    public List<IdNameDto> listarDocumentos() {
+    public List<IdNameDTO> listarDocumentos() {
         return service.listAll();
     }
 
     @GetMapping("search")
-    public String pesquisarDocumentos(@RequestParam String word) {
+    public List<DocumentDTO> pesquisarDocumentos(@RequestParam String word) {
         return service.search(word);
     }
 

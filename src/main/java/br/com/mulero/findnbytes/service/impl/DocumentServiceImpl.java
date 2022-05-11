@@ -1,6 +1,7 @@
 package br.com.mulero.findnbytes.service.impl;
 
-import br.com.mulero.findnbytes.dto.IdNameDto;
+import br.com.mulero.findnbytes.dto.DocumentDTO;
+import br.com.mulero.findnbytes.dto.IdNameDTO;
 import br.com.mulero.findnbytes.model.Document;
 import br.com.mulero.findnbytes.model.repository.DocumentRepository;
 import br.com.mulero.findnbytes.model.specification.DocumentSpecification;
@@ -41,23 +42,28 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<IdNameDto> listAll() {
+    public List<IdNameDTO> listAll() {
         return repository.findAll().stream()
-                .map(IdNameDto::new)
+                .map(IdNameDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public String search(String word) {
+    public List<DocumentDTO> search(String word) {
         Specification<Document> where = Specification.where(null);
 
         if (StringUtils.hasLength(word)) {
             where = where.and(specification.contentLike(word));
         }
 
-        List<Document> documents = repository.findAll(where);
+        return repository.findAll(where).stream()
+                .map(document -> entityToDto(document, word))
+                .collect(Collectors.toList());
+    }
 
-        return null;
+    private DocumentDTO entityToDto(Document document, String word) {
+        String snippet = repository.getSnippetOfContent(word, document.getId());
+        return new DocumentDTO(document.getName(), snippet);
     }
 
 }
