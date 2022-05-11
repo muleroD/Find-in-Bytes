@@ -1,13 +1,14 @@
 package br.com.mulero.findnbytes.service;
 
-import br.com.mulero.findnbytes.dto.DocumentoDTO;
+import br.com.mulero.findnbytes.dto.IdNameDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-public interface DocumentoService {
+public interface DocumentService {
     void upload(MultipartFile file);
 
-    List<DocumentoDTO> listAll();
+    List<IdNameDto> listAll();
 
+    String search(String word);
 }

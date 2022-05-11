@@ -1,7 +1,6 @@
 package br.com.mulero.findnbytes.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,10 +9,9 @@ import javax.persistence.*;
 @Data
 @Table
 @Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Documento {
+public class Document {
 
     @Id
     @Column
@@ -21,14 +19,14 @@ public class Documento {
     private Long id;
 
     @Column
-    private String nome;
+    private String name;
 
     @Column
     @Lob
-    private byte[] arquivo;
+    private byte[] archive;
 
     @Column
     @Lob
-    private String conteudo;
+    private String content;
 
 }

@@ -1,7 +1,7 @@
 package br.com.mulero.findnbytes.controller;
 
-import br.com.mulero.findnbytes.dto.DocumentoDTO;
-import br.com.mulero.findnbytes.service.DocumentoService;
+import br.com.mulero.findnbytes.dto.IdNameDto;
+import br.com.mulero.findnbytes.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,20 +12,23 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-public class DocumentoController {
+public class DocumentController {
+
+    private final DocumentService service;
 
     @Autowired
-    private DocumentoService service;
+    public DocumentController(DocumentService documentService) {
+        this.service = documentService;
+    }
 
-    @GetMapping("listar")
-    public List<DocumentoDTO> listarDocumentos() {
+    @GetMapping("listAll")
+    public List<IdNameDto> listarDocumentos() {
         return service.listAll();
     }
 
-    @GetMapping("pesquisar")
-    public String pesquisarDocumentos(@RequestParam String trecho) {
-        // TODO - Retornar documentos com trecho pesquisado
-        return trecho;
+    @GetMapping("search")
+    public String pesquisarDocumentos(@RequestParam String word) {
+        return service.search(word);
     }
 
     @PostMapping("upload")
