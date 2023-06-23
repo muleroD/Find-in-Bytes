@@ -18,18 +18,7 @@ import java.util.Objects;
 import static org.apache.commons.io.FilenameUtils.getExtension;
 
 @Slf4j
-public class FileReaderUtils {
-
-    FileReaderUtils() {
-    }
-
-    public static byte[] getBytes(MultipartFile file) {
-        try {
-            return file.getBytes();
-        } catch (IOException ioException) {
-            throw new IllegalArgumentException("Erro ler bytes do arquivo: " + ioException.getMessage());
-        }
-    }
+public class FileReader {
 
     public static String getContent(MultipartFile file) {
         try {
@@ -47,11 +36,11 @@ public class FileReaderUtils {
                     return getContentFromDocx(inputStream);
 
                 default:
-                    throw new IllegalArgumentException("Extensão inválida: " + ext);
+                    throw new IllegalArgumentException("Invalid extension: " + ext);
             }
         } catch (IOException ioException) {
             log.error(ioException.getMessage());
-            throw new IllegalArgumentException("Erro ao ler conteúdo do arquivo: " + ioException.getMessage());
+            throw new RuntimeException("Cannot read content in file: " + ioException.getMessage(), ioException);
         }
     }
 

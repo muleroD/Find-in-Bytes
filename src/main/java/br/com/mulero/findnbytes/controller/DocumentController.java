@@ -23,17 +23,17 @@ public class DocumentController {
     }
 
     @GetMapping("listAll")
-    public List<IdNameDTO> listarDocumentos() {
+    public List<IdNameDTO> listAll() {
         return service.listAll();
     }
 
     @GetMapping("search")
-    public List<DocumentDTO> pesquisarDocumentos(@RequestParam String word) {
+    public List<DocumentDTO> searchDocuments(@RequestParam String word) {
         return service.search(word);
     }
 
     @PostMapping("upload")
-    public void uploadDocumento(@RequestParam MultipartFile arquivo) {
+    public void uploadFile(@RequestParam MultipartFile arquivo) {
         service.upload(arquivo);
     }
 

@@ -1,46 +1,46 @@
 # Find in Bytes
 
-A proposta desse repositório é ter como exemplo, como consultar texto dentro de bytes utilizando funções do
-Oracle/Oracle Text usando Java com Spring.
+This repository is an example of how to search for text within bytes using Oracle/Oracle Text functions using Java with
+Spring.
 
-## Motivação
+## Technologies Used
 
-Um tempo atrás recebi um desafio bastante curioso, e resolvi criar esse repositório em memória dele. A proposta do
-desafio era a seguinte:
+- Java 8
+- Oracle database
 
-1. O usuário pode fazer o upload de um arquivo com as seguintes extensões: csv, pdf, txt, doc, docx, xls, xlsx, xml;
-2. O usuário pode baixar qualquer arquivo enviado;
-3. Deve haver uma forma de pesquisar no arquivo com uma palavra e retornar um trecho em que ela se encontra.
+## Motivation
 
-## Restrições
+I received an interesting challenge and decided to create this repository in response to it. The proposed challenge was
+as follows:
 
-Deveria ser uma API Rest utilizando Java com Spring e se conectando ao banco de dados Oracle. Não deve utilizar nenhum
-mecanismo de busca ou analise como, por exemplo, Elasticsearch, etc.
+1. The user can upload files with the following extensions: csv, pdf, txt, doc, docx, xls, xlsx, xml.
+2. The user can download any uploaded file.
+3. It should be possible to search for keywords within the files and return the snippet where they are found.
 
-## Configuração do banco de dados
+## Constraints
 
-O artigo abaixo descreve a melhor maneira para instalar e executar o Oracle Database via docker:
-[Deploy de um banco Oracle em um container Docker Linux e conexão via SQL Developer](https://rcarneironet.medium.com/deploy-de-um-banco-oracle-em-um-container-docker-linux-e-conex%C3%A3o-via-sql-developer-2cb8c5787b77)
+The API must be built using Java with Spring and connect to the Oracle database. It is not allowed to use search or
+analysis mechanisms such as Elasticsearch, etc.
 
-## Get Started
+## Getting Started
 
-### Primeiros Passos
+We started with the basic functionality of receiving the file from the user and saving it in the database as a BLOB,
+allowing for later download. This way, it is not necessary to keep the file in a separate directory.
 
-Resolvi começar pelo "simples", receber o arquivo do usuário e salvar no banco como BLOB para que eu consiga baixar
-novamente, dessa forma não preciso manter o arquivo em nenhum diretório ou algo do tipo.
+## Data Model
 
-### Modelagem
+The Document table is used to store the files and has the following initial columns:
 
-Resolvi começar pelo "simples", receber o arquivo do usuário e salvar no banco como BLOB para que eu consiga baixar
-novamente, dessa forma não preciso manter o arquivo em nenhum diretório ou algo do tipo.
+- **ID** - automatically generated identifier.
+- **NAME** - full name of the file.
+- **FILE** - file bytes.
+- **CONTENT** - file content.
 
-Vamos criar uma tabela chamada Documento que inicialmente vai ter as seguintes colunas:
+To make the functionality of searching, a database function called "getSnippetOfContent" was created. This function uses
+Oracle functions such as DBMS_LOB.SUBSTR and DBMS_LOB.INSTR to find the desired text snippet.
 
-- **ID** - identificador com valor gerado automaticamente;
-- **NOME** - nome completo do arquivo;
-- **ARQUIVO** - bytes do arquivo;
-- **CONTEUDO** - conteúdo de dentro do arquivo.
+## API Documentation
 
-## Documentação da API
+The API documentation can be accessed at: http://localhost:8080/swagger-ui/index.html
 
-http://localhost:8080/swagger-ui/index.html
+**Note:** Make sure the application is running to access the API documentation.

@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static br.com.mulero.findnbytes.util.FileReaderUtils.getBytes;
-import static br.com.mulero.findnbytes.util.FileReaderUtils.getContent;
+import static br.com.mulero.findnbytes.util.FileReader.getContent;
 
 @Service
 public class DocumentServiceImpl implements DocumentService {
@@ -66,4 +66,11 @@ public class DocumentServiceImpl implements DocumentService {
         return new DocumentDTO(document.getName(), snippet);
     }
 
+    private byte[] getBytes(MultipartFile file) {
+        try {
+            return file.getBytes();
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file", e);
+        }
+    }
 }
